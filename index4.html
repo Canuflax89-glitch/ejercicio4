@@ -1,0 +1,105 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <link rel="stylesheet" href="estilos4.css">
+    <script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
+</head>
+<body>
+<div>
+    <br>
+    <form class="ancho margen izqui" action="guardar.php" method="get" name="formulariovalidacion" id="formulariovalidacion">
+        <h2>DATOS DEL ALUMNO</h2>
+        <input type="text" class="caja2" id="nombre" placeholder="Escribe tu nombre" name="nombre" maxlength="30" required>
+        <br>
+        <input type="email" class="caja2" id="correo" placeholder="Escribe tu gmail" name="correo" required>
+        <br><br>
+
+        <h2>ACTIVIDADES EXTRAESCOLARES</h2>
+        <input type="checkbox" id="deporte" class="caja1" value="" name="deporte">
+        <label for="deporte">Deporte (futbol, beisbol, basketball, volibol)</label>
+        <br>
+        <input type="checkbox" id="club" class="caja1" value="" name="club">
+        <label for="club">Club de Programación</label>
+        <br>
+        <input type="checkbox" id="capitulo" class="caja1" value="" name="capitulo">
+        <label for="capitulo">Capitulo de Sistemas</label>
+        <br><br>
+
+        <h2>DOMINIO DEL IDIOMA INGLES:</h2>
+        <input type="radio" id="avanzado" class="caja3" value="avanzado" name="dominio">
+        <label for="">Avanzado</label>
+        <br>
+        <input type="radio" id="intermedio" class="caja3" value="intermedio" name="dominio">
+        <label for="">Intermedio</label>
+        <br>
+        <input type="radio" id="basico" class="caja3" value="basico" name="dominio">
+        <label for="">Básico</label>
+        <br><br>
+
+        <h2>Unidades</h2>
+        <select class="caja2" name="carreras" id="unidades">
+            <option id="" value="">Seleccione una opcíon</option>
+            <option id="unidad1" value="unidad1">Unidad 1</option>
+            <option id="unidad2" value="unidad2">Unidad 2</option>
+            <option id="unidad3" value="unidad3">Unidad 3</option>
+            <option id="unidad4" value="pfinal">Proyecto Final</option>
+        </select>
+        <br><br>
+        <button type="button" id="btn_validar" class="btn_rojo">Validar Elementos</button>
+    </form>
+    </div>
+
+    <script>
+
+        $(document).ready(function () {
+            $("#btn_validar").click(function () {
+                let nombres = $("#nombre").val().trim();
+                let email = $("#correo").val().trim();
+                let unidades = $("#unidades").val();
+                let expresionCorreo = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+
+                if (nombres === '') {
+                    alert("No escribiste tu nombre");
+                    $("#nombre").focus();
+                    return false;
+                }
+
+                if (email === '') {
+                    alert("No escribiste tu email");
+                    $("#correo").focus();
+                    return false;
+                }
+
+                if (!expresionCorreo.test(email)) {
+                    alert("Tu correo no es válido");
+                    $("#correo").focus();
+                    return false;
+                }
+
+                if (!$(".caja1").is(":checked")) {
+                    alert("Debes seleccionar al menos una actividad extraescolar");
+                    $(".caja1").first().focus();
+                    return false;
+                }
+
+                if (!$(".caja3").is(":checked")) {
+                    alert("Debes seleccionar algun dominio del idioma ingles");
+                    $(".caja3").first().focus();
+                    return false;
+                }
+
+                    if (unidades === '') {
+                    alert("Debes seleccionar una opción en unidades");
+                    $("#caja2").focus();
+                    return false;
+                }
+                $("#formulariovalidacion")[0].submit();
+            });
+        });
+
+    </script>
+</body>
+</html>
